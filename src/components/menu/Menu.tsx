@@ -1,29 +1,61 @@
-import React from 'react';
-import { AppBar, Toolbar, Typography, Button } from '@mui/material';
+import React, { useState } from 'react';
+import { IconButton, Menu as MUIMenu, MenuItem, AppBar, Toolbar, Typography } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 import { styled } from '@mui/material/styles';
 
-const StyledToolbar = styled(Toolbar)({
-    display: 'flex',
-    justifyContent: 'space-between',
-});
 
-const StyledTypography = styled(Typography)({
-    flexGrow: 1,
-});
+const StyledIconButton = styled(IconButton)(({ theme }) => ({
+    color: theme.palette.common.white,
+    '&:hover': {
+        backgroundColor: 'lightgreen', // 悬停时的背景色
+    },
+}));
 
-const Menu: React.FC = () => {
+const Menu: React.FC<{ onMenuItemClick: (menuTitle: string) => void }> = ({ onMenuItemClick }) => {
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+    const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleMenuItemClick = (menuTitle: string) => {
+        onMenuItemClick(menuTitle);
+        handleMenuClose();
+    };
+
+    const renderMenu = (
+        <MUIMenu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
+        >
+            <MenuItem onClick={() => handleMenuItemClick('在线时间')}>在线时间</MenuItem>
+            <MenuItem onClick={() => handleMenuItemClick('闹钟')}>闹钟</MenuItem>
+            <MenuItem onClick={() => handleMenuItemClick('计时器')}>计时器</MenuItem>
+            <MenuItem onClick={() => handleMenuItemClick('秒表')}>秒表</MenuItem>
+        </MUIMenu>
+    );
+
     return (
-        <AppBar position="static">
-            <StyledToolbar>
-                <StyledTypography variant="h6">
-                    时间管理工具
-                </StyledTypography>
-                <Button color="inherit" href="/">时钟</Button>
-                <Button color="inherit" href="/alarm">闹钟</Button>
-                <Button color="inherit" href="/timer">计时器</Button>
-                <Button color="inherit" href="/stopwatch">秒表</Button>
-            </StyledToolbar>
-        </AppBar>
+        <>
+                <Toolbar>
+                    <StyledIconButton
+                        edge="start"
+                        aria-label="menu"
+                        onClick={handleMenuOpen}
+                    >
+                        <MenuIcon />
+                        <Typography variant="body1" component="span" sx={{ marginLeft: 1 }}>
+                            菜单
+                        </Typography>
+                    </StyledIconButton>
+                    {renderMenu}
+                </Toolbar>
+        </>
     );
 };
 

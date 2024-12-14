@@ -1,18 +1,13 @@
 import React from 'react';
-import Menu from './components/menu/Menu.tsx';
-import { Container } from '@mui/material';
-import './App.css';
+import { BrowserRouter as Router } from 'react-router-dom';
+import MainLayout from './components/MainLayout';
 
 const App: React.FC = () => {
     return (
-        <div className="App">
-            <Menu />
-            <Container>
-                <header className="App-header">
-                    <h1>在线时钟</h1>
-                </header>
-            </Container>
-        </div>
+
+        <Router>
+            <MainLayout />
+        </Router>
     );
 };
 

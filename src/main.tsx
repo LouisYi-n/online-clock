@@ -1,10 +1,29 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+const theme = createTheme({
+    palette: {
+        background: {
+            default: '#55d746', // 设置全局背景色为绿色
+        },
+    },
+});
+// 获取根元素的容器
+const container = document.getElementById('root');
+if (container) {
+    const root = ReactDOM.createRoot(container);
+
+    // 使用 createRoot 渲染元素
+    root.render(
+        <React.StrictMode>
+            <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <App />
+            </ThemeProvider>
+        </React.StrictMode>
+    );
+} else {
+    console.error("根容器 'root' 未找到");
+}
