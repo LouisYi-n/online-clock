@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import { Box, Typography, IconButton } from '@mui/material';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
-import Clock from './Clock';
+import Time from './Time.tsx';
 import Menu from './menu/Menu.tsx';
 
 const RootContainer = styled(Box)({
@@ -59,11 +59,11 @@ const MainLayout: React.FC = () => {
             </SideContainer>
             <CenterContainer>
                 <TitleContainer>
-                    <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'black' }}>
+                    <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#595959' }}>
                         {title}
                     </Typography>
                 </TitleContainer>
-                <Clock />
+                <Time />
             </CenterContainer>
             <SideContainer>
                 <FullscreenButton color="inherit" onClick={handleFullscreenClick}>

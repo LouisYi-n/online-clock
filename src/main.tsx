@@ -6,7 +6,7 @@ import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 const theme = createTheme({
     palette: {
         background: {
-            default: '#55d746', // 设置全局背景色为绿色
+            default: '#f9f0ff', // 设置全局背景色为绿色
         },
     },
 });

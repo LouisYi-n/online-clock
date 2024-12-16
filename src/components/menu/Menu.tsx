@@ -5,9 +5,9 @@ import { styled } from '@mui/material/styles';
 
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
-    color: theme.palette.common.white,
+    color: '#595959',
     '&:hover': {
-        backgroundColor: 'lightgreen', // 悬停时的背景色
+        backgroundColor: '#bfbfbf', // 悬停时的背景色
     },
 }));
 
