@@ -11,7 +11,7 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
     },
 }));
 
-const Menu: React.FC<{ onMenuItemClick: (menuTitle: string) => void }> = ({ onMenuItemClick }) => {
+const Menu: React.FC<{ onMenuItemClick: (menuTitle: string, path: string) => void }> = ({ onMenuItemClick }) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
     const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -22,8 +22,8 @@ const Menu: React.FC<{ onMenuItemClick: (menuTitle: string) => void }> = ({ onMe
         setAnchorEl(null);
     };
 
-    const handleMenuItemClick = (menuTitle: string) => {
-        onMenuItemClick(menuTitle);
+    const handleMenuItemClick = (menuTitle: string, path: string) => {
+        onMenuItemClick(menuTitle, path);
         handleMenuClose();
     };
 
@@ -33,10 +33,10 @@ const Menu: React.FC<{ onMenuItemClick: (menuTitle: string) => void }> = ({ onMe
             open={Boolean(anchorEl)}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={() => handleMenuItemClick('在线时间')}>在线时间</MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('闹钟')}>闹钟</MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('计时器')}>计时器</MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('秒表')}>秒表</MenuItem>
+            <MenuItem onClick={() => handleMenuItemClick('在线时间', '/time')}>在线时间</MenuItem>
+            <MenuItem onClick={() => handleMenuItemClick('闹钟', '/alarm-clock')}>闹钟</MenuItem>
+            <MenuItem onClick={() => handleMenuItemClick('计时器', '/timer')}>计时器</MenuItem>
+            <MenuItem onClick={() => handleMenuItemClick('秒表', '/stopwatch')}>秒表</MenuItem>
         </MUIMenu>
     );
 

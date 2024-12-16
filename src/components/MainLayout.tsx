@@ -4,6 +4,10 @@ import { Box, Typography, IconButton } from '@mui/material';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import Time from './Time.tsx';
 import Menu from './menu/Menu.tsx';
+import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
+import Timer from "./Timer.tsx";
+import AlarmClock from "./AlarmClock.tsx";
+import Stopwatch from "./Stopwatch.tsx";
 
 const RootContainer = styled(Box)({
     display: 'flex',
@@ -36,9 +40,11 @@ const TitleContainer = styled(Box)({
 const MainLayout: React.FC = () => {
     const [title, setTitle] = useState('在线时间');
     const [fullScreen, setFullScreen] = useState(false);
+    const navigate = useNavigate();
 
-    const handleMenuItemClick = (menuTitle: string) => {
+    const handleMenuItemClick = (menuTitle: string, path: string) => {
         setTitle(menuTitle);
+        navigate(path); // 跳转到对应路径
     };
 
     const handleFullscreenClick = () => {
@@ -63,7 +69,13 @@ const MainLayout: React.FC = () => {
                         {title}
                     </Typography>
                 </TitleContainer>
-                <Time />
+                <Routes>
+                    <Route path="/time" element={<Time />} />
+                    <Route path="/timer" element={<Timer />} />
+                    <Route path="/alarm-clock" element={<AlarmClock />} />
+                    <Route path="/stopwatch" element={<Stopwatch />} />
+                    <Route path="/" element={<Navigate to="/time" />} />
+                </Routes>
             </CenterContainer>
             <SideContainer>
                 <FullscreenButton color="inherit" onClick={handleFullscreenClick}>
