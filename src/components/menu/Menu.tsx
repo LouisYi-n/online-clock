@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { IconButton, Menu as MUIMenu, MenuItem, AppBar, Toolbar, Typography } from '@mui/material';
+import { IconButton, Menu as MUIMenu, MenuItem, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { styled } from '@mui/material/styles';
 
 
-const StyledIconButton = styled(IconButton)(({ theme }) => ({
+const StyledIconButton = styled(IconButton)(() => ({
     color: '#595959',
     '&:hover': {
         backgroundColor: '#bfbfbf', // 悬停时的背景色
