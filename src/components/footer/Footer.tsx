@@ -4,7 +4,7 @@ import { Box, Typography } from '@mui/material';
 const Footer: React.FC = () => {
     const year = new Date().getFullYear();
     return (
-    <Box component="footer" sx={{ py: 2, textAlign: 'center', width: '100%', backgroundColor: '#e6f4ff', marginTop: 'auto' }}>
+    <Box component="footer" sx={{ py: 2, textAlign: 'center', width: '100%', backgroundColor: '#f0f0f0', marginTop: 'auto' }}>
         <Typography variant="body2" color="textSecondary">
             Copyright © {year} 打一张南风
         </Typography>
