@@ -9,14 +9,3 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-.MuiAppBar-root {
-  background-color: #55d746;
-}
-
-.MuiTypography-root {
-    color: #e70d0d;
-}
-
-.MuiIconButton-root {
-  color: #1d82da;
-}

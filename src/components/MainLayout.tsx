@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { styled } from '@mui/material/styles';
-import { Box, Typography, IconButton } from '@mui/material';
+import React, {useState} from 'react';
+import {styled} from '@mui/material/styles';
+import {Box, Typography, IconButton} from '@mui/material';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import Time from './Time.tsx';
 import Menu from './menu/Menu.tsx';
@@ -8,10 +8,17 @@ import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
 import Timer from "./Timer.tsx";
 import AlarmClock from "./AlarmClock.tsx";
 import Stopwatch from "./Stopwatch.tsx";
+import Footer from "./footer/Footer.tsx";
 
 const RootContainer = styled(Box)({
     display: 'flex',
+    flexDirection: 'column',
     height: '100vh',
+});
+
+const ContentWrapper = styled(Box)({
+    display: 'flex',
+    flexGrow: 1,
 });
 
 const SideContainer = styled(Box)({
@@ -60,28 +67,31 @@ const MainLayout: React.FC = () => {
 
     return (
         <RootContainer>
-            <SideContainer>
-                <Menu onMenuItemClick={handleMenuItemClick} />
-            </SideContainer>
-            <CenterContainer>
-                <TitleContainer>
-                    <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#595959' }}>
-                        {title}
-                    </Typography>
-                </TitleContainer>
-                <Routes>
-                    <Route path="/time" element={<Time />} />
-                    <Route path="/timer" element={<Timer />} />
-                    <Route path="/alarm-clock" element={<AlarmClock />} />
-                    <Route path="/stopwatch" element={<Stopwatch />} />
-                    <Route path="/" element={<Navigate to="/time" />} />
-                </Routes>
-            </CenterContainer>
-            <SideContainer>
-                <FullscreenButton color="inherit" onClick={handleFullscreenClick}>
-                    <FullscreenIcon />
-                </FullscreenButton>
-            </SideContainer>
+            <ContentWrapper>
+                <SideContainer>
+                    <Menu onMenuItemClick={handleMenuItemClick}/>
+                </SideContainer>
+                <CenterContainer>
+                    <TitleContainer>
+                        <Typography variant="h4" sx={{fontWeight: 'bold', color: '#595959'}}>
+                            {title}
+                        </Typography>
+                    </TitleContainer>
+                    <Routes>
+                        <Route path="/time" element={<Time/>}/>
+                        <Route path="/timer" element={<Timer/>}/>
+                        <Route path="/alarm-clock" element={<AlarmClock/>}/>
+                        <Route path="/stopwatch" element={<Stopwatch/>}/>
+                        <Route path="/" element={<Navigate to="/time"/>}/>
+                    </Routes>
+                </CenterContainer>
+                <SideContainer>
+                    <FullscreenButton color="inherit" onClick={handleFullscreenClick}>
+                        <FullscreenIcon/>
+                    </FullscreenButton>
+                </SideContainer>
+            </ContentWrapper>
+            <Footer/>
         </RootContainer>
     );
 };
