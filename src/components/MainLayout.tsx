@@ -14,6 +14,7 @@ import Footer from "./footer/Footer.tsx";
 interface FullScreenProps {
     fullScreen: boolean;
 }
+
 const RootContainer = styled(Box)({
     display: 'flex',
     flexDirection: 'column',
@@ -115,7 +116,7 @@ const MainLayout: React.FC = () => {
                     <div style={{display: 'none'}}></div>
                 </SideContainer>
             </ContentWrapper>
-            {!fullScreen && <Footer />}
+            {!fullScreen && <Footer/>}
         </RootContainer>
     );
 };
