@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {styled} from '@mui/material/styles';
 import {Box, Typography, IconButton} from '@mui/material';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
@@ -16,26 +16,29 @@ const RootContainer = styled(Box)({
     height: '100vh',
 });
 
-const ContentWrapper = styled(Box)({
+const ContentWrapper = styled(Box)(({fullScreen}) => ({
     display: 'flex',
-    flexGrow: 1,
-});
+    flexGrow: fullScreen ? 'column' : 'row',
+}));
 
-const SideContainer = styled(Box)({
-    width: '25%',
-});
+const SideContainer = styled(Box)(({fullScreen}) => ({
+    width: fullScreen ? 0 : '25%',
+    display: fullScreen ? 'none' : 'block',
+}));
 
-const CenterContainer = styled(Box)({
-    width: '50%',
+const CenterContainer = styled(Box)(({fullScreen}) => ({
+    width: fullScreen ? '100%' : '50%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-});
+    flexGrow: 1,
+}));
 
 const FullscreenButton = styled(IconButton)({
     position: 'absolute',
     top: '16px',
     right: '16px',
+    zIndex: 1000, // 确保按钮在所有内容之上
 });
 
 const TitleContainer = styled(Box)({
@@ -49,29 +52,47 @@ const MainLayout: React.FC = () => {
     const [fullScreen, setFullScreen] = useState(false);
     const navigate = useNavigate();
 
+    // 监听全屏状态变化
+    useEffect(() => {
+        const handleFullscreenChange = () => {
+            setFullScreen(!!document.fullscreenElement);
+        };
+
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        return () => {
+            document.removeEventListener('fullscreenchange', handleFullscreenChange);
+        };
+    }, []);
+
     const handleMenuItemClick = (menuTitle: string, path: string) => {
         setTitle(menuTitle);
         navigate(path); // 跳转到对应路径
     };
 
     const handleFullscreenClick = () => {
-        setFullScreen(!fullScreen);
-        if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen();
+        if (!fullScreen) {
+            document.documentElement.requestFullscreen().catch((err) => {
+                console.error(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+            });
         } else {
             if (document.exitFullscreen) {
-                document.exitFullscreen();
+                document.exitFullscreen().catch((err) => {
+                    console.error(`Error attempting to exit full-screen mode: ${err.message} (${err.name})`);
+                });
             }
         }
     };
 
     return (
         <RootContainer>
-            <ContentWrapper>
-                <SideContainer>
+            <FullscreenButton color="inherit" onClick={handleFullscreenClick}>
+                <FullscreenIcon/>
+            </FullscreenButton>
+            <ContentWrapper fullScreen={fullScreen}>
+                <SideContainer fullScreen={fullScreen}>
                     <Menu onMenuItemClick={handleMenuItemClick}/>
                 </SideContainer>
-                <CenterContainer>
+                <CenterContainer fullScreen={fullScreen}>
                     <TitleContainer>
                         <Typography variant="h4" sx={{fontWeight: 'bold', color: '#595959'}}>
                             {title}
@@ -85,13 +106,11 @@ const MainLayout: React.FC = () => {
                         <Route path="/" element={<Navigate to="/time"/>}/>
                     </Routes>
                 </CenterContainer>
-                <SideContainer>
-                    <FullscreenButton color="inherit" onClick={handleFullscreenClick}>
-                        <FullscreenIcon/>
-                    </FullscreenButton>
+                <SideContainer fullScreen={fullScreen}>
+                    {/*这里留空，是为了保持 1:2:1 的布局*/}
                 </SideContainer>
             </ContentWrapper>
-            <Footer/>
+            {!fullScreen && <Footer />}
         </RootContainer>
     );
 };
