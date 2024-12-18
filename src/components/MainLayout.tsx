@@ -10,23 +10,27 @@ import AlarmClock from "./AlarmClock.tsx";
 import Stopwatch from "./Stopwatch.tsx";
 import Footer from "./footer/Footer.tsx";
 
+// 为 FullScreenProps 定义类型
+interface FullScreenProps {
+    fullScreen: boolean;
+}
 const RootContainer = styled(Box)({
     display: 'flex',
     flexDirection: 'column',
     height: '100vh',
 });
 
-const ContentWrapper = styled(Box)(({fullScreen}) => ({
+const ContentWrapper = styled(Box)<FullScreenProps>(({fullScreen}) => ({
     display: 'flex',
     flexGrow: fullScreen ? 'column' : 'row',
 }));
 
-const SideContainer = styled(Box)(({fullScreen}) => ({
+const SideContainer = styled(Box)<FullScreenProps>(({fullScreen}) => ({
     width: fullScreen ? 0 : '25%',
     display: fullScreen ? 'none' : 'block',
 }));
 
-const CenterContainer = styled(Box)(({fullScreen}) => ({
+const CenterContainer = styled(Box)<FullScreenProps>(({fullScreen}) => ({
     width: fullScreen ? '100%' : '50%',
     display: 'flex',
     flexDirection: 'column',
@@ -108,6 +112,7 @@ const MainLayout: React.FC = () => {
                 </CenterContainer>
                 <SideContainer fullScreen={fullScreen}>
                     {/*这里留空，是为了保持 1:2:1 的布局*/}
+                    <div style={{display: 'none'}}></div>
                 </SideContainer>
             </ContentWrapper>
             {!fullScreen && <Footer />}
