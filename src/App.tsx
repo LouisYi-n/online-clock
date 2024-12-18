@@ -4,7 +4,8 @@ import MainLayout from './components/MainLayout';
 
 const App: React.FC = () => {
     return (
-        <Router basename="/online">
+        //<Router basename="/online">
+        <Router>
             <Routes>
                 <Route path="/" element={<Navigate replace to="/time" />} />
                 <Route path="/*" element={<MainLayout />} />
