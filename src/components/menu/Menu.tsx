@@ -34,9 +34,9 @@ const Menu: React.FC<{ onMenuItemClick: (menuTitle: string, path: string) => voi
             onClose={handleMenuClose}
         >
             <MenuItem onClick={() => handleMenuItemClick('在线时间', '/time')}>在线时间</MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('闹钟', '/alarm-clock')}>闹钟</MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('计时器', '/timer')}>计时器</MenuItem>
-            <MenuItem onClick={() => handleMenuItemClick('秒表', '/stopwatch')}>秒表</MenuItem>
+            <MenuItem onClick={() => handleMenuItemClick('在线闹钟', '/alarm-clock')}>在线闹钟</MenuItem>
+            <MenuItem onClick={() => handleMenuItemClick('在线计时器', '/timer')}>在线计时器</MenuItem>
+            <MenuItem onClick={() => handleMenuItemClick('在线秒表', '/stopwatch')}>在线秒表</MenuItem>
         </MUIMenu>
     );
 
