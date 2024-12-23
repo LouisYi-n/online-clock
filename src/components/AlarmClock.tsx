@@ -32,7 +32,7 @@ const SvgContainer = styled.svg`
 // 静态圆圈样式
 const StaticCircle = styled.circle`
     fill: none;
-    stroke: #e0e0e0;
+    stroke: #91caff;
     stroke-width: ${STROKE_WIDTH};
 `;
 
@@ -49,12 +49,12 @@ const createKeyframes = (circumference: number) => keyframes`
 // 倒计时圆圈样式
 const CountdownCircle = styled.circle<{ remainingTime: number; alarmTime: number }>`
     fill: none;
-    stroke: #fa541c;
+    stroke: #4096ff;
     stroke-width: ${STROKE_WIDTH};
     stroke-linecap: round;
     stroke-dasharray: ${2 * Math.PI * RADIUS}; // 圆的周长
     stroke-dashoffset: ${props => (2 * Math.PI * RADIUS) * (1 - props.remainingTime / props.alarmTime)};
-    animation: ${props => createKeyframes(2 * Math.PI * RADIUS)} ${props => props.alarmTime}s linear forwards;
+    animation: ${() => createKeyframes(2 * Math.PI * RADIUS)} ${props => props.alarmTime}s linear forwards;
 `;
 
 const AlarmClock: React.FC = () => {
@@ -121,11 +121,8 @@ const AlarmClock: React.FC = () => {
         <Box width="100%" p={3} display="flex" flexDirection="column" alignItems="center">
             <Box width="100%">
                 {alarmTime ? (
-                    <Box textAlign="center" mb={2} position="relative">
+                    <Box textAlign="center" mb={2} display="flex" flexDirection="column" alignItems="center">
                         <Box display="flex" justifyContent="center" alignItems="center" position="relative">
-                            <Box position="absolute" top="25%" left="35%" right="35%" textAlign="center">
-                                <Typography variant="h5">闹钟</Typography>
-                            </Box>
                             <SvgContainer>
                                 <StaticCircle cx={RADIUS + STROKE_WIDTH} cy={RADIUS + STROKE_WIDTH} r={RADIUS} />
                                 <CountdownCircle
@@ -136,7 +133,22 @@ const AlarmClock: React.FC = () => {
                                     alarmTime={alarmTimeRef.current}
                                 />
                             </SvgContainer>
-                            <Box position="absolute" textAlign="center" transform="translate(-50%, -50%)">
+                            <Box sx={{
+                                position: 'absolute',
+                                textAlign: 'center',
+                                top: '25%',   // 调整以确保文本居中
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)'
+                            }}>
+                                <Typography variant="h5">闹钟</Typography>
+                            </Box>
+                            <Box sx={{
+                                position: 'absolute',
+                                textAlign: 'center',
+                                top: '40%',
+                                left: '50%',
+                                transform: 'translate(-50%, 10%)' // 调整以确保时间文本位于“闹钟”文本的下方
+                            }}>
                                 <Typography variant="h2">{formatTime(remainingTime)}</Typography>
                             </Box>
                         </Box>
@@ -206,7 +218,7 @@ const AlarmClock: React.FC = () => {
                         <Button
                             fullWidth
                             variant="contained"
-                            sx={{ backgroundColor: '#f5222d', '&:hover': { backgroundColor: '#ffccc7' } }} // 自定义颜色橙色及其悬停颜色
+                            sx={{ backgroundColor: '#d4380d', '&:hover': { backgroundColor: '#ffccc7' } }} // 自定义颜色橙色及其悬停颜色
                             onClick={() => {
                                 clearInterval(intervalId as number);
                                 setAlarmTime(null);
