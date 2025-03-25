@@ -30,10 +30,10 @@ const presetAlarmTimes = [
 
 // 闹钟铃声列表
 const alarmSounds = [
-  {value: '吱吱叫', label: '吱吱叫', src: '/src/assets/ring/吱吱叫.mp3'},
-  {value: '死亡岛', label: '死亡岛', src: '/src/assets/ring/死亡岛.mp3'},
-  {value: '进击的巨人', label: '进击的巨人', src: '/src/assets/ring/进击的巨人.mp3'},
-  {value: '鸭子', label: '鸭子', src: '/src/assets/ring/鸭子.mp3'},
+  {value: '吱吱叫', label: '吱吱叫', src: '/ring/吱吱叫.mp3'},
+  {value: '死亡岛', label: '死亡岛', src: '/ring/死亡岛.mp3'},
+  {value: '进击的巨人', label: '进击的巨人', src: '/ring/进击的巨人.mp3'},
+  {value: '鸭子', label: '鸭子', src: '/ring/鸭子.mp3'},
 ];
 
 // 定义圆的半径
