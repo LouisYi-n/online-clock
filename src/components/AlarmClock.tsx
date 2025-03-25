@@ -81,14 +81,9 @@ const AlarmClock: React.FC = () => {
   const [minutes, setMinutes] = useState<number>(0);
   const [alarmTime, setAlarmTime] = useState<Date | null>(null);
   const [remainingTime, setRemainingTime] = useState<number>(0);
-  const [intervalId, setIntervalId] = useState<number | null>(null);
   const [alarmSound, setAlarmSound] = useState<string>(alarmSounds[0].src); // 默认选择第一个铃声
   const [alarmName, setAlarmName] = useState<string>('闹钟'); // 默认名称
   const [isAlarmActive, setIsAlarmActive] = useState<boolean>(false);
-  const [alarmRecords, setAlarmRecords] = useState([]); // 存储所有设置的闹钟
-  const [currentAlarm, setCurrentAlarm] =  useState<Date | null>(null); // 存储当前设置的闹钟
-
-
   const alarmTimeRef = useRef<number>(0);
   const audioRef = useRef<HTMLAudioElement | null>(null); // 指定类型为 HTMLAudioElement
 
@@ -107,17 +102,13 @@ const AlarmClock: React.FC = () => {
               console.error("播放铃声时出错：", error);
             }); // 添加错误处理
           }
-          //alert('时间到！${alarmName}'); // 提示信息包含闹钟名称
           // 设置闹钟为活动状态
           setIsAlarmActive(true);
-          setIntervalId(null); // 取消定时器
           setRemainingTime(0); // 重置倒计时
         } else {
           setRemainingTime(Math.ceil(timeDifference / 1000)); // 转换为秒
         }
       }, 1000);
-
-      setIntervalId(id);
 
       return () => clearInterval(id);
     }
@@ -135,8 +126,6 @@ const AlarmClock: React.FC = () => {
     }
     setAlarmTime(alarm);
     alarmTimeRef.current = Math.ceil((alarm.getTime() - now.getTime()) / 1000);
-    setAlarmRecords((prev) => [...prev, alarm]); // 记录新的闹钟
-    setCurrentAlarm(alarm)
   };
 
   // 贪睡逻辑
@@ -180,7 +169,7 @@ const AlarmClock: React.FC = () => {
     return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const formatTime2 = (time) => {
+  const formatTime2 = (time: Date) => {
     const date = new Date(time);
     // 获取小时和分钟，并格式化为两位数
     const hours = String(date.getHours()).padStart(2, '0');

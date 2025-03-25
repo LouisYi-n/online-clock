@@ -1,14 +1,21 @@
-# React + TypeScript + Vite
+## 项目概述
 这是一个使用 `Vite` 构建的 `React` 项目，使用的 `TypeScripts`，UI 使用的 `Materials UI`。
 
 此项目还在开发中，希望能实现网页版的时钟使用。包括时间，世界时间，闹钟，秒表，计时等功能 
 
-## version
+## 相关版本
 - node: 18.20.2
 - react: 18.3
 - MUI: 5.15.18
 
-启动项目： npm install && npm run dev
+## 启动项目：
+`npm install && npm run dev`
+
+## 项目部署
+### 打包
+`npm run build`
+
+
 
 
 这是一个使用 `Vite` 构建的 `React` 项目，使用的 `TypeScripts`，UI 使用的 `Materials UI`。
